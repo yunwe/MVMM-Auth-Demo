@@ -44,6 +44,10 @@ ThemeData getApplicationTheme() {
     ),
     textTheme: Typography.whiteHelsinki.copyWith(
       bodySmall: const TextStyle(color: Colors.white),
+      titleLarge: TextStyle(
+        color: MyColors.lightGrey,
+        fontSize: 26,
+      ),
     ),
     checkboxTheme: CheckboxThemeData(
       fillColor: MaterialStateProperty.resolveWith(getColor),

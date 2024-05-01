@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mvmm_auth_demo/presentation/_resources/app_strings.dart';
 import 'package:mvmm_auth_demo/presentation/_resources/colors.dart';
 import 'package:mvmm_auth_demo/presentation/_resources/values.dart';
-import 'package:mvmm_auth_demo/presentation/common_widgets/const_widgets.dart';
+import 'package:mvmm_auth_demo/presentation/common_widgets/shared_widgets.dart';
 import 'package:mvmm_auth_demo/presentation/common_widgets/form_container.dart';
 import 'package:mvmm_auth_demo/presentation/common_widgets/gradient_container.dart';
 import 'package:mvmm_auth_demo/presentation/common_widgets/link_text.dart';
@@ -28,9 +28,9 @@ class LoginView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            formContent,
-            whiteSpace,
-            whiteDivider,
+            formContent(context),
+            SharedWidgets.whiteSpace,
+            SharedWidgets.whiteDivider,
             const LinkText(
               routeName: Routes.register,
               text: AppStrings.registerText,
@@ -41,17 +41,21 @@ class LoginView extends StatelessWidget {
     );
   }
 
-  Widget get formContent => FormContainerWidget(
+  Widget formContent(BuildContext context) => FormContainerWidget(
         content: SizedBox(
           width: AppSize.formEntityWidth,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(AppStrings.signinTitle),
-              getTextFormField(Icons.person, AppStrings.userName),
-              getTextFormField(Icons.lock, AppStrings.password),
-              loginButton,
+              Text(
+                AppStrings.signinTitle,
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              SharedWidgets.getTextFormField(Icons.person, AppStrings.userName),
+              SharedWidgets.getTextFormField(Icons.lock, AppStrings.password),
+              SharedWidgets.getButton(
+                  onPressed: () {}, label: AppStrings.login),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -63,31 +67,6 @@ class LoginView extends StatelessWidget {
                 ],
               ),
             ],
-          ),
-        ),
-      );
-
-  Widget getTextFormField(IconData icon, String hint) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: AppPadding.p8),
-        child: TextFormField(
-          decoration: InputDecoration(
-            hintText: hint,
-            prefixIcon: Icon(
-              icon,
-              size: AppSize.iconSize,
-            ),
-          ),
-        ),
-      );
-
-  Widget get loginButton => Padding(
-        padding: const EdgeInsets.symmetric(vertical: AppPadding.p8),
-        child: SizedBox(
-          width: double.infinity,
-          height: AppSize.formEntityHeight,
-          child: ElevatedButton(
-            onPressed: () {},
-            child: const Text(AppStrings.login),
           ),
         ),
       );

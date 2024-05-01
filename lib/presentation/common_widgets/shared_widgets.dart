@@ -26,12 +26,15 @@ class SharedWidgets {
         ),
       );
 
-  static Widget getButton(
-          {required void Function()? onPressed, required String label}) =>
+  static Widget getButton({
+    required void Function()? onPressed,
+    required String label,
+    double? width,
+  }) =>
       Padding(
         padding: const EdgeInsets.symmetric(vertical: AppPadding.p8),
         child: SizedBox(
-          width: double.infinity,
+          width: width ?? double.infinity,
           height: AppSize.formEntityHeight,
           child: ElevatedButton(
             onPressed: onPressed,

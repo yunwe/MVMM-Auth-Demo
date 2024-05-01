@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mvmm_auth_demo/presentation/_resources/app_strings.dart';
 import 'package:mvmm_auth_demo/presentation/_resources/colors.dart';
 import 'package:mvmm_auth_demo/presentation/_resources/values.dart';
@@ -47,15 +46,16 @@ class RegisterView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                AppStrings.registerTitile,
+                AppStrings.titleRegister,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              SharedWidgets.getTextFormField(Icons.person, AppStrings.userName),
-              SharedWidgets.getTextFormField(Icons.lock, AppStrings.password),
               SharedWidgets.getTextFormField(
-                  Icons.lock, AppStrings.confirmPassword),
+                  Icons.person, AppStrings.hintUserName),
+              SharedWidgets.getTextFormField(Icons.lock, AppStrings.hintPw),
+              SharedWidgets.getTextFormField(
+                  Icons.lock, AppStrings.hintConfirmPw),
               SharedWidgets.getButton(
-                  onPressed: () {}, label: AppStrings.signup),
+                  onPressed: () {}, label: AppStrings.labelSignup),
             ],
           ),
         ),

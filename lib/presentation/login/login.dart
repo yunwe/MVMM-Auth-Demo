@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'package:mvmm_auth_demo/presentation/_resources/app_strings.dart';
@@ -49,13 +48,14 @@ class LoginView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                AppStrings.signinTitle,
+                AppStrings.titleSignin,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              SharedWidgets.getTextFormField(Icons.person, AppStrings.userName),
-              SharedWidgets.getTextFormField(Icons.lock, AppStrings.password),
+              SharedWidgets.getTextFormField(
+                  Icons.person, AppStrings.hintUserName),
+              SharedWidgets.getTextFormField(Icons.lock, AppStrings.hintPw),
               SharedWidgets.getButton(
-                  onPressed: () {}, label: AppStrings.login),
+                  onPressed: () {}, label: AppStrings.labelLogin),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

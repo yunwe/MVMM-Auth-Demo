@@ -9,18 +9,15 @@ class AppMargin {
 
 class AppPadding {
   static const double p8 = 8.0;
-  static const double p12 = 12.0;
-  static const double p14 = 14.0;
-  static const double p16 = 16.0;
-  static const double p18 = 18.0;
-  static const double p20 = 20.0;
   static const double p28 = 28.0;
-  static const double p100 = 100.0;
 }
 
 class AppSize {
-  static const double border_radius = 10;
-  static const double opacity = 0.3;
+  static const double borderRadius = 7.0;
+  static const double opacity = 0.5;
+  static const double formEntityWidth = 240;
+  static const double formEntityHeight = 46;
+  static const double iconSize = 28;
 }
 
 class DurationConstant {}

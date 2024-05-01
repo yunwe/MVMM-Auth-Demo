@@ -17,7 +17,7 @@ class RegisterView extends StatelessWidget {
             onPressed: () {
               context.goNamed(Routes.recover);
             },
-            child: const Text(AppStrings.forgetPassword),
+            child: const Text(AppStrings.forgotPassword),
           ),
           TextButton(
             onPressed: () {

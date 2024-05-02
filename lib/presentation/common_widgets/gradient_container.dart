@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mvmm_auth_demo/presentation/_resources/colors.dart';
-import 'package:mvmm_auth_demo/presentation/_resources/values.dart';
 
 class GradientContainerWidget extends StatelessWidget {
   final Widget content;

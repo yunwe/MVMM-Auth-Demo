@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mvmm_auth_demo/data/network/app_api.dart';
 
 import 'package:mvmm_auth_demo/presentation/_resources/app_strings.dart';
 import 'package:mvmm_auth_demo/presentation/_resources/colors.dart';
@@ -12,6 +13,10 @@ import 'package:mvmm_auth_demo/presentation/routes.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
+
+  void doLogin() {
+    // AppServiceClient().login();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +56,9 @@ class LoginView extends StatelessWidget {
                 AppStrings.titleSignin,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
-              SharedWidgets.getTextFormField(
-                  Icons.person, AppStrings.hintUserName),
+              SharedWidgets.getTextFormField(Icons.person, AppStrings.hintUserName),
               SharedWidgets.getTextFormField(Icons.lock, AppStrings.hintPw),
-              SharedWidgets.getButton(
-                  onPressed: () {}, label: AppStrings.labelLogin),
+              SharedWidgets.getButton(onPressed: doLogin, label: AppStrings.labelLogin),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

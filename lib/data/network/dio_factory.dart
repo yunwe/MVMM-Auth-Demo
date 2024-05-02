@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:mvmm_auth_demo/app/constant.dart';
-import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 const String APPLICATION_JSON = "application/json";
 const String CONTENT_TYPE = "content-type";

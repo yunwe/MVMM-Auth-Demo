@@ -1,5 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:mvmm_auth_demo/data/network/app_api.dart';
+import 'package:mvmm_auth_demo/data/network/dio_factory.dart';
+import 'package:mvmm_auth_demo/data/responses/responses.dart';
 
 import 'package:mvmm_auth_demo/presentation/_resources/app_strings.dart';
 import 'package:mvmm_auth_demo/presentation/_resources/colors.dart';
@@ -14,8 +17,10 @@ import 'package:mvmm_auth_demo/presentation/routes.dart';
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
-  void doLogin() {
-    // AppServiceClient().login();
+  void doLogin() async {
+    Dio dio = await DioFactory().getDio();
+    AuthenticationResponse response = await AppServiceClient(dio).login('a', 'ksdf', '', '');
+    print(response);
   }
 
   @override

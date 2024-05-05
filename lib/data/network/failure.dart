@@ -1,6 +1,11 @@
 class Failure {
-  int code; // 200 or 400
-  String message; // error or success
+  final int statusCode;
+  final String message;
 
-  Failure(this.code, this.message);
+  Failure(this.statusCode, this.message);
+
+  @override
+  String toString() {
+    return 'Status [$statusCode] - $message';
+  }
 }

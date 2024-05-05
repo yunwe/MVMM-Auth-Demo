@@ -1,9 +1,45 @@
-import 'package:dio/dio.dart';
-import 'package:mvmm_auth_demo/data/network/failure.dart';
-import 'package:retrofit/retrofit.dart';
+// ignore_for_file: constant_identifier_names
 
-const NOT_DIO_EXCEPTION = -100;
-const UNDEFINE_DIO_EXCEPTION = -200;
+import 'package:dio/dio.dart';
+import 'failure.dart';
+
+enum DefinedError {
+  CONNECT_TIMEOUT(800, ErrorStrings.CONNECT_TIMEOUT),
+  CANCEL(801, ErrorStrings.CANCEL),
+  RECEIVE_TIMEOUT(802, ErrorStrings.RECEIVE_TIMEOUT),
+  SEND_TIMEOUT(803, ErrorStrings.SEND_TIMEOUT),
+  CACHE_ERROR(804, ErrorStrings.CACHE_ERROR),
+  NO_INTERNET_CONNECTION(805, ErrorStrings.NO_INTERNET_CONNECTION),
+  BAD_CERTIFICATE(806, ErrorStrings.BAD_CERTIFICATE),
+
+  /// Caused for example by a `xhr.onError` or SocketExceptions.
+  CONNECTION_ERROR(807, ErrorStrings.CONNECTION_ERROR),
+
+  DEFAULT(999, ErrorStrings.DEFAULT);
+
+  const DefinedError(this.statusCode, this.message);
+
+  final int statusCode;
+  final String message;
+
+  Failure get failure => Failure(statusCode, message);
+}
+
+enum BadResponseError {
+  NO_CONTENT(201, ErrorStrings.NO_CONTENT),
+  BAD_REQUEST(400, ErrorStrings.BAD_REQUEST),
+  FORBIDDEN(403, ErrorStrings.FORBIDDEN),
+  UNAUTHORISED(401, ErrorStrings.UNAUTHORISED),
+  NOT_FOUND(404, ErrorStrings.NOT_FOUND),
+  INTERNAL_SERVER_ERROR(500, ErrorStrings.INTERNAL_SERVER_ERROR);
+
+  const BadResponseError(this.statusCode, this.message);
+
+  final int statusCode;
+  final String message;
+
+  Failure get failure => Failure(statusCode, message);
+}
 
 class ErrorHandler implements Exception {
   late Failure failure;
@@ -14,41 +50,36 @@ class ErrorHandler implements Exception {
       failure = _handleError(error);
     } else {
       // default error
-      failure = Failure(NOT_DIO_EXCEPTION, ErrorStrings.DEFAULT);
+      failure = DefinedError.DEFAULT.failure;
     }
   }
 
   Failure _handleError(DioException error) {
-    int statusCode = error.response?.statusCode ?? UNDEFINE_DIO_EXCEPTION;
-
     switch (error.type) {
       case DioExceptionType.connectionTimeout:
-        return Failure(statusCode, ErrorStrings.CONNECT_TIMEOUT);
+        return DefinedError.CONNECT_TIMEOUT.failure;
       case DioExceptionType.sendTimeout:
-        return Failure(statusCode, ErrorStrings.SEND_TIMEOUT);
+        return DefinedError.SEND_TIMEOUT.failure;
       case DioExceptionType.receiveTimeout:
-        return Failure(statusCode, ErrorStrings.RECEIVE_TIMEOUT);
-      case DioExceptionType.cancel:
-        return Failure(statusCode, ErrorStrings.CANCEL);
-      case DioErrorType.response:
-        switch (error.response?.statusCode) {
-          case ResponseCode.BAD_REQUEST:
-            return DataSource.BAD_REQUEST.getFailure();
-          case ResponseCode.FORBIDDEN:
-            return DataSource.FORBIDDEN.getFailure();
-          case ResponseCode.UNAUTHORISED:
-            return DataSource.UNAUTHORISED.getFailure();
-          case ResponseCode.NOT_FOUND:
-            return DataSource.NOT_FOUND.getFailure();
-          case ResponseCode.INTERNAL_SERVER_ERROR:
-            return DataSource.INTERNAL_SERVER_ERROR.getFailure();
-          default:
-            return DataSource.DEFAULT.getFailure();
+        return DefinedError.RECEIVE_TIMEOUT.failure;
+      case DioExceptionType.badCertificate:
+        return DefinedError.BAD_CERTIFICATE.failure;
+      case DioExceptionType.badResponse:
+        if (error.response != null && error.response!.statusCode != null) {
+          for (var err in BadResponseError.values) {
+            if (err.statusCode == error.response!.statusCode!) {
+              return err.failure;
+            }
+          }
         }
+        return DefinedError.DEFAULT.failure;
       case DioExceptionType.cancel:
-        return DataSource.CANCEL.getFailure();
-      case DioExceptionType.other:
-        return DataSource.DEFAULT.getFailure();
+        return DefinedError.CANCEL.failure;
+      case DioExceptionType.connectionError:
+        return DefinedError.CONNECTION_ERROR.failure;
+      case DioExceptionType.unknown:
+      default:
+        return DefinedError.DEFAULT.failure;
     }
   }
 }
@@ -69,5 +100,16 @@ class ErrorStrings {
   static const String RECEIVE_TIMEOUT = "time out error, try again later";
   static const String SEND_TIMEOUT = "time out error, try again later";
   static const String CACHE_ERROR = "Cache error, try again later";
+  static const String BAD_CERTIFICATE = "Incorrect certificate";
   static const String NO_INTERNET_CONNECTION = "Please check your internet connection";
+  static const String CONNECTION_ERROR = "Cannot connect to server.";
+}
+
+enum APIInternalStatus {
+  fail(0),
+  success(1);
+
+  final int statusCode;
+
+  const APIInternalStatus(this.statusCode);
 }

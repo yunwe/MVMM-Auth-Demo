@@ -16,7 +16,7 @@ class Contacts {
 }
 
 class Authentication {
-  Customer? customer;
+  Customer customer;
 
   Authentication(this.customer);
 }

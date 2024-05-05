@@ -1,8 +1,10 @@
-import 'package:dio/dio.dart';
+import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
-import 'package:mvmm_auth_demo/data/network/app_api.dart';
-import 'package:mvmm_auth_demo/data/network/dio_factory.dart';
-import 'package:mvmm_auth_demo/data/responses/responses.dart';
+import 'package:mvmm_auth_demo/data/network/failure.dart';
+import 'package:mvmm_auth_demo/data/repository/repository_impl.dart';
+import 'package:mvmm_auth_demo/data/request/request.dart';
+import 'package:mvmm_auth_demo/domain/model/model.dart';
+import 'package:mvmm_auth_demo/domain/repository/repository.dart';
 
 import 'package:mvmm_auth_demo/presentation/_resources/app_strings.dart';
 import 'package:mvmm_auth_demo/presentation/_resources/colors.dart';
@@ -18,9 +20,15 @@ class LoginView extends StatelessWidget {
   const LoginView({super.key});
 
   void doLogin() async {
-    Dio dio = await DioFactory().getDio();
-    AuthenticationResponse response = await AppServiceClient(dio).login('a', 'ksdf', '', '');
-    print(response);
+    // Repository repo = RepositoryImpl();
+    // LoginRequest request = LoginRequest('abc', '123456', '', '');
+    // Either<Failure, Authentication> value = await repo.login(request);
+
+    // if (value.isLeft) {
+    //   print(value.left.toString());
+    // } else {
+    //   print(value.right.customer.name);
+    // }
   }
 
   @override

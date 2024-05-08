@@ -28,4 +28,8 @@ class AppKeys {
   static const Key loginSubmit = Key('loginForm_continue_raisedButton');
 }
 
+class FontSize {
+  static const double inputFontSize = 16;
+}
+
 class DurationConstant {}

@@ -33,6 +33,10 @@ class SharedWidgets {
               size: AppSize.iconSize,
             ),
           ),
+          style: const TextStyle(
+            fontSize: FontSize.inputFontSize,
+            color: Colors.black87,
+          ),
         ),
       );
 

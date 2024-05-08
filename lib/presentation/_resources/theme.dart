@@ -20,6 +20,12 @@ ThemeData getApplicationTheme() {
     colorScheme: ColorScheme.fromSeed(
       seedColor: MyColors.primary,
     ),
+    dividerTheme: const DividerThemeData(
+      indent: AppPadding.p28,
+      endIndent: AppPadding.p28,
+      thickness: 2,
+      color: Colors.white,
+    ),
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
       fillColor: Colors.white,

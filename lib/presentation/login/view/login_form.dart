@@ -3,10 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:mvmm_auth_demo/presentation/_resources/app_strings.dart';
 import 'package:mvmm_auth_demo/presentation/_resources/values.dart';
-import 'package:mvmm_auth_demo/presentation/common_widgets/form_container.dart';
-import 'package:mvmm_auth_demo/presentation/common_widgets/link_text.dart';
-import 'package:mvmm_auth_demo/presentation/common_widgets/my_checkbox.dart';
-import 'package:mvmm_auth_demo/presentation/common_widgets/shared_widgets.dart';
+import 'package:mvmm_auth_demo/presentation/common_widgets/common_widgets.dart';
 import 'package:mvmm_auth_demo/presentation/login/bloc/login_bloc.dart';
 import 'package:mvmm_auth_demo/presentation/login/login.dart';
 import 'package:mvmm_auth_demo/presentation/routes.dart';
@@ -31,32 +28,41 @@ class LoginForm extends StatelessWidget {
   }
 
   Widget formContent(BuildContext context) => FormContainerWidget(
-        content: SizedBox(
-          width: AppSize.formEntityWidth,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                AppStrings.titleSignin,
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              _UsernameInput(),
-              _PasswordInput(),
-              _LoginButton(),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  MyCheckbox(label: AppStrings.rememberMe),
-                  LinkText(
-                    routeName: Routes.recover,
-                    text: AppStrings.forgotPassword,
-                  ),
-                ],
-              ),
-            ],
-          ),
+        content: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              AppStrings.titleSignin,
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            spaceP20,
+            _UsernameInput(),
+            spaceP20,
+            _PasswordInput(),
+            spaceP20,
+            _LoginButton(),
+            spaceP8,
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MyCheckbox(label: AppStrings.rememberMe),
+                LinkText(
+                  routeName: Routes.recover,
+                  text: AppStrings.forgotPassword,
+                ),
+              ],
+            ),
+          ],
         ),
+      );
+
+  Widget get spaceP20 => const SizedBox(
+        height: AppPadding.p20,
+      );
+
+  Widget get spaceP8 => const SizedBox(
+        height: AppPadding.p8,
       );
 }
 
@@ -66,11 +72,11 @@ class _UsernameInput extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
         buildWhen: (previous, current) => previous.username != current.username,
         builder: (context, state) {
-          return SharedWidgets.getTextFormField(
+          return MyTextField(
             Icons.person,
             AppStrings.hintUserName,
             key: AppKeys.loginUsername,
-            onChange: (username) => context.read<LoginBloc>().add(
+            onChanged: (username) => context.read<LoginBloc>().add(
                   LoginUsernameChanged(username),
                 ),
             errorText: state.username.displayError?.text(), //Todo: Use AppStrings
@@ -85,11 +91,11 @@ class _PasswordInput extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
         buildWhen: (previous, current) => previous.password != current.password,
         builder: (context, state) {
-          return SharedWidgets.getTextFormField(
-            Icons.person,
-            AppStrings.hintUserName,
+          return MyTextField(
+            Icons.lock,
+            AppStrings.hintPw,
             key: AppKeys.loginPassword,
-            onChange: (password) => context.read<LoginBloc>().add(
+            onChanged: (password) => context.read<LoginBloc>().add(
                   LoginPasswordChanged(password),
                 ),
             errorText: state.password.displayError?.text(), //Todo: Use AppStrings
@@ -105,7 +111,7 @@ class _LoginButton extends StatelessWidget {
       builder: (context, state) {
         return state.status.isInProgress
             ? const CircularProgressIndicator()
-            : SharedWidgets.getButton(
+            : MyButton(
                 key: AppKeys.loginSubmit,
                 onPressed: state.isValid
                     ? () {

@@ -12,12 +12,13 @@ class AppMargin {
 class AppPadding {
   static const double p8 = 8.0;
   static const double p28 = 28.0;
+  static const double p20 = 20.0;
 }
 
 class AppSize {
   static const double borderRadius = 7.0;
   static const double opacity = 0.5;
-  static const double formEntityWidth = 240;
+  static const double formEntityWidth = 280; //Todo: Delete after fixing register.dart, forgetpassword.dart
   static const double formEntityHeight = 46;
   static const double iconSize = 28;
 }

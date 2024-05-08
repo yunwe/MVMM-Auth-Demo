@@ -4,9 +4,7 @@ import 'package:mvmm_auth_demo/app/di.dart';
 import 'package:mvmm_auth_demo/domain/usecase/login_usecase.dart';
 import 'package:mvmm_auth_demo/presentation/_resources/app_strings.dart';
 import 'package:mvmm_auth_demo/presentation/_resources/colors.dart';
-import 'package:mvmm_auth_demo/presentation/common_widgets/gradient_container.dart';
-import 'package:mvmm_auth_demo/presentation/common_widgets/link_text.dart';
-import 'package:mvmm_auth_demo/presentation/common_widgets/shared_widgets.dart';
+import 'package:mvmm_auth_demo/presentation/common_widgets/common_widgets.dart';
 import 'package:mvmm_auth_demo/presentation/login/bloc/login_bloc.dart';
 import 'package:mvmm_auth_demo/presentation/login/view/login_form.dart';
 import 'package:mvmm_auth_demo/presentation/routes.dart';
@@ -31,8 +29,8 @@ class LoginPage extends StatelessWidget {
                 },
                 child: const LoginForm(),
               ),
-              SharedWidgets.whiteSpace,
-              SharedWidgets.whiteDivider,
+              space,
+              const Divider(),
               const LinkText(
                 routeName: Routes.register,
                 text: AppStrings.registerText,
@@ -43,4 +41,8 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget get space => const SizedBox(
+        height: 40,
+      );
 }

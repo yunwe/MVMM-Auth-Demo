@@ -8,6 +8,7 @@ import 'package:mvmm_auth_demo/presentation/common_widgets/link_text.dart';
 import 'package:mvmm_auth_demo/presentation/common_widgets/my_checkbox.dart';
 import 'package:mvmm_auth_demo/presentation/common_widgets/shared_widgets.dart';
 import 'package:mvmm_auth_demo/presentation/login/bloc/login_bloc.dart';
+import 'package:mvmm_auth_demo/presentation/login/login.dart';
 import 'package:mvmm_auth_demo/presentation/routes.dart';
 
 class LoginForm extends StatelessWidget {
@@ -72,7 +73,7 @@ class _UsernameInput extends StatelessWidget {
             onChange: (username) => context.read<LoginBloc>().add(
                   LoginUsernameChanged(username),
                 ),
-            errorText: state.username.displayError != null ? 'invalid username' : null, //Todo: Use AppStrings
+            errorText: state.username.displayError?.text(), //Todo: Use AppStrings
           );
         });
   }
@@ -91,7 +92,7 @@ class _PasswordInput extends StatelessWidget {
             onChange: (password) => context.read<LoginBloc>().add(
                   LoginPasswordChanged(password),
                 ),
-            errorText: state.password.displayError != null ? 'invalid password' : null, //Todo: Use AppStrings
+            errorText: state.password.displayError?.text(), //Todo: Use AppStrings
           );
         });
   }

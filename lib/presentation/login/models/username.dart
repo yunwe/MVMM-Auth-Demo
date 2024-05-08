@@ -1,8 +1,21 @@
 import 'package:formz/formz.dart';
+import 'package:mvmm_auth_demo/presentation/_resources/app_strings.dart';
 
 enum UsernameValidationError {
   empty,
-  invalidLenght,
+  short,
+  long;
+
+  String text() {
+    switch (this) {
+      case UsernameValidationError.short:
+        return AppStrings.errorShortUsername;
+      case UsernameValidationError.long:
+        return AppStrings.errorLongUsername;
+      case UsernameValidationError.empty:
+        return AppStrings.errorEmptyUsername;
+    }
+  }
 }
 
 class Username extends FormzInput<String, UsernameValidationError> {
@@ -13,7 +26,9 @@ class Username extends FormzInput<String, UsernameValidationError> {
   UsernameValidationError? validator(String value) {
     if (value.isEmpty) return UsernameValidationError.empty;
 
-    if (value.length < 4 && value.length > 30) return UsernameValidationError.invalidLenght;
+    if (value.length < 4) return UsernameValidationError.short;
+
+    if (value.length > 30) return UsernameValidationError.long;
 
     return null;
   }

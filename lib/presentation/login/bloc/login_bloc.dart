@@ -58,6 +58,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         LoginUseCaseInput input = LoginUseCaseInput(state.username.value, state.username.value);
         Either<Failure, Authentication> value = await _useCase.execute(input);
 
+        //TODO: Use value of Failure, Authentication
+
         if (value.isLeft) {
           emit(state.copyWith(status: FormzSubmissionStatus.failure));
         } else {

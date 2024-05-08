@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
+import 'package:mvmm_auth_demo/app/di.dart';
 import 'package:mvmm_auth_demo/presentation/forget_password/forget_password.dart';
 import 'package:mvmm_auth_demo/presentation/login/login.dart';
 import 'package:mvmm_auth_demo/presentation/register/register.dart';
@@ -21,7 +22,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/',
       name: Routes.signin,
-      builder: (BuildContext context, GoRouterState state) => const LoginView(),
+      builder: (BuildContext context, GoRouterState state) {
+        initLoginModule();
+        return const LoginPage();
+      },
       routes: <RouteBase>[
         GoRoute(
           path: Routes.register,

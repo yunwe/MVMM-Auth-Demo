@@ -13,11 +13,21 @@ class SharedWidgets {
     height: 40,
   );
 
-  static Widget getTextFormField(IconData icon, String hint) => Padding(
+  static Widget getTextFormField(
+    IconData icon,
+    String hint, {
+    Key? key,
+    String? errorText,
+    void Function(String)? onChange,
+  }) =>
+      Padding(
         padding: const EdgeInsets.symmetric(vertical: AppPadding.p8),
         child: TextFormField(
+          key: key,
+          onChanged: onChange,
           decoration: InputDecoration(
             hintText: hint,
+            errorText: errorText,
             prefixIcon: Icon(
               icon,
               size: AppSize.iconSize,
@@ -29,6 +39,7 @@ class SharedWidgets {
   static Widget getButton({
     required void Function()? onPressed,
     required String label,
+    Key? key,
     double? width,
   }) =>
       Padding(
@@ -37,6 +48,7 @@ class SharedWidgets {
           width: width ?? double.infinity,
           height: AppSize.formEntityHeight,
           child: ElevatedButton(
+            key: key,
             onPressed: onPressed,
             child: Text(label),
           ),

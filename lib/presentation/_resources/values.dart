@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class AppMargin {
   static const double m8 = 8.0;
   static const double m12 = 12.0;
@@ -18,6 +20,12 @@ class AppSize {
   static const double formEntityWidth = 240;
   static const double formEntityHeight = 46;
   static const double iconSize = 28;
+}
+
+class AppKeys {
+  static const Key loginUsername = Key('loginForm_usernameInput_textField');
+  static const Key loginPassword = Key('loginForm_passwordInput_textField');
+  static const Key loginSubmit = Key('loginForm_continue_raisedButton');
 }
 
 class DurationConstant {}

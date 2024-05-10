@@ -1,24 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:mvmm_auth_demo/presentation/_resources/theme.dart';
-import 'package:mvmm_auth_demo/presentation/routes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mvmm_auth_demo/app/di.dart';
+import 'package:mvmm_auth_demo/app/route/app_router.dart';
+import 'package:mvmm_auth_demo/app/route/route_utils.dart';
+import 'package:mvmm_auth_demo/data/auth/repository/repository_implementer.dart';
+import 'package:mvmm_auth_demo/presentation/controller/app/bloc/app_bloc.dart';
 
-class MyApp extends StatefulWidget {
-  MyApp._internal(); // private named constructor
-  int appState = 0;
-  static final MyApp instance = MyApp._internal(); // single instance -- singleton
-
-  factory MyApp() => instance; // factory for the class instance
+class App extends StatelessWidget {
+  const App({
+    super.key,
+  });
 
   @override
-  _MyAppState createState() => _MyAppState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => AppBloc(
+        authenticationRepository: injector<AuthenticationRepository>(),
+      ),
+      child: const AppView(),
+    );
+  }
 }
 
-class _MyAppState extends State<MyApp> {
+class AppView extends StatelessWidget {
+  const AppView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: router,
-      theme: getApplicationTheme(),
+      routerConfig: AppRouter.router,
+      //  theme: getApplicationTheme(),
+      builder: (context, child) {
+        return BlocListener<AppBloc, AppState>(
+          listener: (context, state) {
+            switch (state.status) {
+              case AppStatus.authenticated:
+                context.goNamed(PAGES.home.screenName);
+              case AppStatus.unauthenticated:
+              default:
+                context.goNamed(PAGES.signin.screenName);
+            }
+          },
+          child: child,
+        );
+      },
     );
   }
 }

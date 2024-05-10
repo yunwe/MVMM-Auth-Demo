@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mvmm_auth_demo/app/di.dart';
-import 'package:mvmm_auth_demo/data/auth/repository/repository_implementer.dart';
 import 'package:mvmm_auth_demo/presentation/controller/app/bloc/app_bloc.dart';
+import 'package:mvmm_auth_demo/presentation/screens/home/home.dart';
 import 'package:mvmm_auth_demo/presentation/screens/login/login.dart';
 import 'route_utils.dart';
 
@@ -17,11 +17,10 @@ class AppRouter {
       GoRoute(
         path: PAGES.home.screenPath,
         name: PAGES.home.screenName,
-        //TODO: fill here
-        // builder: (context, state) => BlocProvider(
-        //   create: (context) => injector<AppBloc>(),
-        //   child: const HomeScreen(),
-        // ),
+        builder: (context, state) => BlocProvider(
+          create: (context) => injector<AppBloc>(),
+          child: const HomePage(),
+        ),
       ),
       GoRoute(
         path: PAGES.signin.screenPath,

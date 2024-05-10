@@ -26,14 +26,7 @@ class AppRouter {
       GoRoute(
         path: PAGES.signin.screenPath,
         name: PAGES.signin.screenName,
-        builder: (context, state) => BlocProvider(
-          create: (context) {
-            return LoginBloc(
-              useCase: injector<AuthenticationRepository>(),
-            );
-          },
-          child: const LoginPage(),
-        ),
+        builder: (context, state) => const LoginPage(),
       ),
     ],
     errorBuilder: (context, state) => const _NoPageFound(),

@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:mvmm_auth_demo/data/auth/repository/repository_implementer.dart';
+import 'package:mvmm_auth_demo/data/auth/repository/repository_impl.dart';
+import 'package:mvmm_auth_demo/domain/repository/repository.dart';
 import 'package:mvmm_auth_demo/presentation/controller/app/bloc/app_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
@@ -16,13 +17,13 @@ final injector = GetIt.instance;
 
 Future<void> initAppModule() async {
   var cache = await SharedPreferences.getInstance();
-  injector.registerLazySingleton<AuthenticationRepository>(
+  injector.registerLazySingleton<Repository>(
     () => AuthenticationRepository(cache: cache),
   );
 
   injector.registerLazySingleton<AppBloc>(
     () => AppBloc(
-      authenticationRepository: injector<AuthenticationRepository>(),
+      repository: injector<Repository>(),
     ),
   );
 }

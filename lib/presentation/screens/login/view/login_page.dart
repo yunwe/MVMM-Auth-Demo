@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mvmm_auth_demo/app/di.dart';
 import 'package:mvmm_auth_demo/app/route/route_utils.dart';
-import 'package:mvmm_auth_demo/data/auth/repository/repository_implementer.dart';
+import 'package:mvmm_auth_demo/domain/repository/repository.dart';
 import 'package:mvmm_auth_demo/presentation/resources/app_strings.dart';
 import 'package:mvmm_auth_demo/presentation/resources/colors.dart';
 import 'package:mvmm_auth_demo/presentation/screens/common_widgets/widgets.dart';
@@ -24,7 +24,7 @@ class LoginPage extends StatelessWidget {
               BlocProvider(
                 create: (context) {
                   return LoginBloc(
-                    useCase: injector<AuthenticationRepository>(),
+                    useCase: injector<Repository>(),
                   );
                 },
                 child: const LoginForm(),

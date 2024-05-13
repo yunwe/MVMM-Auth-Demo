@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:mvmm_auth_demo/data/auth/repository/repository_implementer.dart';
+import 'package:mvmm_auth_demo/domain/repository/repository.dart';
 import 'package:mvmm_auth_demo/presentation/screens/login/models/models.dart';
 
 part 'login_event.dart';
@@ -9,7 +9,7 @@ part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({
-    required AuthenticationRepository useCase,
+    required Repository useCase,
   })  : _useCase = useCase,
         super(const LoginState()) {
     on<LoginUsernameChanged>(_onUsernameChanged);
@@ -17,7 +17,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginSubmitted>(_onSubmitted);
   }
 
-  final AuthenticationRepository _useCase;
+  final Repository _useCase;
 
   void _onUsernameChanged(
     LoginUsernameChanged event,
@@ -60,7 +60,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         //   emit(state.copyWith(status: FormzSubmissionStatus.success));
         // }
 
-        await _useCase.logInWithEmailAndPassword(
+        await _useCase.signIn(
           email: state.username.value,
           password: state.password.value,
         );

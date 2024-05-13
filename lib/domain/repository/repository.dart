@@ -1,9 +1,15 @@
-// import 'package:either_dart/either.dart';
-// //import 'package:mvmm_auth_demo/data/network/failure.dart';
-// //import 'package:mvmm_auth_demo/data/request/request.dart';
+import '../model/models.dart';
 
-// import '../model/models.dart';
+abstract class Repository {
+  //Output
+  Stream<User> get user;
 
-// abstract class Repository {
-//   Future<Either<Failure, Authentication>> login(LoginRequest loginRequest);
-// }
+  User get currentUser;
+
+  //Input Functions
+  Future<void> signUp({required String email, required String password});
+
+  Future<void> signIn({required String email, required String password});
+
+  Future<void> signOut();
+}

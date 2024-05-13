@@ -1,8 +1,11 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mvmm_auth_demo/app/di.dart';
 import 'package:mvmm_auth_demo/presentation/controller/app/bloc/app_bloc.dart';
+import 'package:mvmm_auth_demo/presentation/screens/error/error.dart';
 import 'package:mvmm_auth_demo/presentation/screens/home/home.dart';
 import 'package:mvmm_auth_demo/presentation/screens/login/login.dart';
 import 'route_utils.dart';
@@ -27,6 +30,10 @@ class AppRouter {
         name: PAGES.signin.screenName,
         builder: (context, state) => const LoginPage(),
       ),
+      GoRoute(
+          path: PAGES.error.screenPath,
+          name: PAGES.error.screenName,
+          builder: (context, state) => const ErrorPage())
     ],
     errorBuilder: (context, state) => const _NoPageFound(),
     redirect: (context, state) async {

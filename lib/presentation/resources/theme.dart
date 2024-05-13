@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mvmm_auth_demo/presentation/resources/colors.dart';
-import 'package:mvmm_auth_demo/presentation/resources/values.dart';
+import 'package:mvmm_auth_demo/presentation/resources/resources.dart';
 
 Color getColor(Set<MaterialState> states) {
   const Set<MaterialState> interactiveStates = <MaterialState>{

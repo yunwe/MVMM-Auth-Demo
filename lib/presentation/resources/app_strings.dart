@@ -6,6 +6,7 @@ class AppStrings {
   static const String titleSignin = "Sign In";
   static const String titleRegister = "Sign Up";
   static const String titleForgotPw = "Reset Password";
+  static const String titleHome = "Home";
   static const String hintUserName = "Username";
   static const String hintPw = "Password";
   static const String hintConfirmPw = "Confirm Password";

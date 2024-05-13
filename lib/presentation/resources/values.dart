@@ -27,6 +27,7 @@ class AppKeys {
   static const Key loginUsername = Key('loginForm_usernameInput_textField');
   static const Key loginPassword = Key('loginForm_passwordInput_textField');
   static const Key loginSubmit = Key('loginForm_continue_raisedButton');
+  static const Key logoutButton = Key('homePage_logout_iconButton');
 }
 
 class FontSize {

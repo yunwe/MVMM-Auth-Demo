@@ -30,7 +30,7 @@ class MyTextField extends StatelessWidget {
           size: AppSize.iconSize,
         ),
       ),
-      obscureText: true,
+      obscureText: obscureText,
       style: const TextStyle(
         fontSize: FontSize.inputFontSize,
         color: Colors.black87,

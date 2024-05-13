@@ -77,7 +77,7 @@ class _UsernameInput extends StatelessWidget {
             onChanged: (username) => context.read<LoginBloc>().add(
                   LoginUsernameChanged(username),
                 ),
-            errorText: state.username.displayError?.text(), //Todo: Use AppStrings
+            errorText: state.username.displayError?.text(),
           );
         });
   }
@@ -96,7 +96,8 @@ class _PasswordInput extends StatelessWidget {
             onChanged: (password) => context.read<LoginBloc>().add(
                   LoginPasswordChanged(password),
                 ),
-            errorText: state.password.displayError?.text(), //Todo: Use AppStrings
+            obscureText: true,
+            errorText: state.password.displayError?.text(),
           );
         });
   }

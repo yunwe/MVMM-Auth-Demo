@@ -1,26 +1,34 @@
-// import 'package:either_dart/either.dart';
-// import 'package:mvmm_auth_demo/app/functions.dart';
-// import 'package:mvmm_auth_demo/data/network/failure.dart';
-// import 'package:mvmm_auth_demo/data/request/request.dart';
-// import 'package:mvmm_auth_demo/domain/model/models.dart';
-// import 'package:mvmm_auth_demo/domain/repository/repository.dart';
-// import 'package:mvmm_auth_demo/domain/usecase/base_usecase.dart';
+import 'dart:async';
 
-// class LoginUseCase implements BaseUseCase<LoginUseCaseInput, Authentication> {
-//   final Repository _repository;
+import 'package:either_dart/either.dart';
+import 'package:mvmm_auth_demo/data/auth/repository/exceptions.dart';
+import 'package:mvmm_auth_demo/domain/model/models.dart';
+import 'package:mvmm_auth_demo/domain/repository/repository.dart';
+import 'package:mvmm_auth_demo/domain/usecase/base_usecase.dart';
 
-//   LoginUseCase(this._repository);
+class LoginUseCase implements BaseUseCase<LoginUseCaseInput, User> {
+  final Repository _repository;
 
-//   @override
-//   Future<Either<Failure, Authentication>> execute(LoginUseCaseInput input) async {
-//     DeviceInfo deviceInfo = await getDeviceDetails();
-//     return await _repository.login(LoginRequest(input.email, input.password, deviceInfo.identifier, deviceInfo.name));
-//   }
-// }
+  LoginUseCase(this._repository);
 
-// class LoginUseCaseInput {
-//   String email;
-//   String password;
+  @override
+  Future<Either<Failure, User>> execute(LoginUseCaseInput input) async {
+    try {
+      await _repository.signIn(email: input.email, password: input.password);
 
-//   LoginUseCaseInput(this.email, this.password);
-// }
+      //Todo: Read user
+      return const Right(User.empty);
+    } on LogInWithEmailAndPasswordFailure catch (error) {
+      return Left(
+        Failure(error.message),
+      );
+    }
+  }
+}
+
+class LoginUseCaseInput {
+  String email;
+  String password;
+
+  LoginUseCaseInput(this.email, this.password);
+}

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "869724024899",
+    "project_id": "mvmm-flutter-auth",
+    "storage_bucket": "mvmm-flutter-auth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:869724024899:android:84c2202b96792cca6be4f6",
+        "android_client_info": {
+          "package_name": "com.example.mvmm_auth_demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "869724024899-shdj38h5uk4ic8k0l6ul536sh4ojn4f9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf7wpeWuYQwft-ENJ_TiWp8sK2xdhfa1w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "869724024899-shdj38h5uk4ic8k0l6ul536sh4ojn4f9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

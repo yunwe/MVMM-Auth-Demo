@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -20,8 +18,8 @@ class AppRouter {
       GoRoute(
         path: PAGES.home.screenPath,
         name: PAGES.home.screenName,
-        builder: (context, state) => BlocProvider(
-          create: (context) => injector<AppBloc>(),
+        builder: (context, state) => BlocProvider.value(
+          value: injector<AppBloc>(),
           child: const HomePage(),
         ),
       ),
@@ -31,19 +29,21 @@ class AppRouter {
         builder: (context, state) => const LoginPage(),
       ),
       GoRoute(
-          path: PAGES.error.screenPath,
-          name: PAGES.error.screenName,
-          builder: (context, state) => const ErrorPage())
+        path: PAGES.error.screenPath,
+        name: PAGES.error.screenName,
+        builder: (context, state) => const ErrorPage(),
+      ),
     ],
     errorBuilder: (context, state) => const _NoPageFound(),
-    redirect: (context, state) async {
-      // Here we need to read the context `context.read()` and decide what to do with its new values. we don't want to trigger any new rebuild through `context.watch`
-      final status = context.read<AppBloc>().state.status;
-      if (status == AppStatus.authenticated) {
-        return null;
-      }
-      return PAGES.signin.screenPath;
-    },
+    // redirect: (context, state) async {
+    //   print(state.name ?? 'Route page do not have name');
+    //   // Here we need to read the context `context.read()` and decide what to do with its new values. we don't want to trigger any new rebuild through `context.watch`
+    //   final status = context.read<AppBloc>().state.status;
+    //   if (status == AppStatus.authenticated) {
+    //     return null;
+    //   }
+    //   return PAGES.signin.screenPath;
+    // },
   );
 
   static GoRouter get router => _router;

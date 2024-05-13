@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mvmm_auth_demo/app/di.dart';
 import 'package:mvmm_auth_demo/app/route/app_router.dart';
 import 'package:mvmm_auth_demo/app/route/route_utils.dart';
 import 'package:mvmm_auth_demo/data/auth/repository/repository_implementer.dart';
 import 'package:mvmm_auth_demo/presentation/controller/app/bloc/app_bloc.dart';
+import 'package:mvmm_auth_demo/presentation/resources/resources.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -30,16 +30,16 @@ class AppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: AppRouter.router,
-      //  theme: getApplicationTheme(),
+      theme: getApplicationTheme(),
       builder: (context, child) {
         return BlocListener<AppBloc, AppState>(
           listener: (context, state) {
             switch (state.status) {
               case AppStatus.authenticated:
-                context.goNamed(PAGES.home.screenName);
+                AppRouter.router.goNamed(PAGES.home.screenName);
               case AppStatus.unauthenticated:
               default:
-                context.goNamed(PAGES.signin.screenName);
+                AppRouter.router.goNamed(PAGES.signin.screenName);
             }
           },
           child: child,

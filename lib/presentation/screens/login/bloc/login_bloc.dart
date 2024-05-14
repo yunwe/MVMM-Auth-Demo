@@ -2,7 +2,6 @@ import 'package:either_dart/either.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:mvmm_auth_demo/domain/channels/user_channel.dart';
 import 'package:mvmm_auth_demo/domain/model/models.dart';
 import 'package:mvmm_auth_demo/domain/usecase/login_usecase.dart';
 import 'package:mvmm_auth_demo/presentation/screens/login/models/models.dart';
@@ -28,6 +27,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final username = Username.dirty(event.username);
     emit(
       state.copyWith(
+        status: FormzSubmissionStatus.initial,
         username: username,
         isValid: Formz.validate([state.password, username]),
       ),
@@ -41,6 +41,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final password = Password.dirty(event.password);
     emit(
       state.copyWith(
+        status: FormzSubmissionStatus.initial,
         password: password,
         isValid: Formz.validate([password, state.username]),
       ),

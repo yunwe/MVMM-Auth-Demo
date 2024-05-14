@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:mvmm_auth_demo/domain/model/models.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 extension FirebaseUserMapperExtension on firebase_auth.User {
   /// Maps a [firebase_auth.User] into a [User].

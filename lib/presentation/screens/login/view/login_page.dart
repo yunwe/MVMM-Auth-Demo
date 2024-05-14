@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mvmm_auth_demo/app/di.dart';
 import 'package:mvmm_auth_demo/app/route/route_utils.dart';
-import 'package:mvmm_auth_demo/domain/channels/user_channel.dart';
 import 'package:mvmm_auth_demo/domain/usecase/login_usecase.dart';
 import 'package:mvmm_auth_demo/presentation/resources/app_strings.dart';
 import 'package:mvmm_auth_demo/presentation/resources/colors.dart';

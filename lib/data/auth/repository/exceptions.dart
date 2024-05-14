@@ -50,7 +50,7 @@ class SignUpWithEmailAndPasswordFailure implements Exception {
 class LogInWithEmailAndPasswordFailure implements Exception {
   /// {@macro log_in_with_email_and_password_failure}
   const LogInWithEmailAndPasswordFailure([
-    this.message = 'An unknown exception occurred.',
+    this.message = 'Invalid email or password.',
   ]);
 
   /// Create an authentication message
@@ -66,13 +66,7 @@ class LogInWithEmailAndPasswordFailure implements Exception {
           'This user has been disabled. Please contact support for help.',
         );
       case 'user-not-found':
-        return const LogInWithEmailAndPasswordFailure(
-          'Email is not found, please create an account.',
-        );
       case 'wrong-password':
-        return const LogInWithEmailAndPasswordFailure(
-          'Incorrect password, please try again.',
-        );
       default:
         return const LogInWithEmailAndPasswordFailure();
     }

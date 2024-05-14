@@ -1,23 +1,25 @@
+import 'package:either_dart/either.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-import 'package:mvmm_auth_demo/domain/repository/repository.dart';
+import 'package:mvmm_auth_demo/domain/channels/user_channel.dart';
+import 'package:mvmm_auth_demo/domain/model/models.dart';
+import 'package:mvmm_auth_demo/domain/usecase/login_usecase.dart';
 import 'package:mvmm_auth_demo/presentation/screens/login/models/models.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc({
-    required Repository useCase,
-  })  : _useCase = useCase,
+  LoginBloc({required LoginUseCase useCase})
+      : _useCase = useCase,
         super(const LoginState()) {
     on<LoginUsernameChanged>(_onUsernameChanged);
     on<LoginPasswordChanged>(_onPasswordChanged);
     on<LoginSubmitted>(_onSubmitted);
   }
 
-  final Repository _useCase;
+  final LoginUseCase _useCase;
 
   void _onUsernameChanged(
     LoginUsernameChanged event,
@@ -51,23 +53,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) async {
     if (state.isValid) {
       emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
-      try {
-        // LoginUseCaseInput input = LoginUseCaseInput(state.username.value, state.username.value);
-        // Either<Failure, Authentication> value = await _useCase.execute(input);
-        // if (value.isLeft) {
-        //   emit(state.copyWith(status: FormzSubmissionStatus.failure));
-        // } else {
-        //   emit(state.copyWith(status: FormzSubmissionStatus.success));
-        // }
-
-        await _useCase.signIn(
-          email: state.username.value,
-          password: state.password.value,
-        );
-
-        emit(state.copyWith(status: FormzSubmissionStatus.success));
-      } catch (error) {
+      LoginUseCaseInput input = LoginUseCaseInput(state.username.value, state.password.value);
+      Either<Failure, void> value = await _useCase.execute(input);
+      if (value.isLeft) {
         emit(state.copyWith(status: FormzSubmissionStatus.failure));
+      } else {
+        emit(state.copyWith(status: FormzSubmissionStatus.success));
       }
     }
   }

@@ -6,19 +6,19 @@ import 'package:mvmm_auth_demo/domain/model/models.dart';
 import 'package:mvmm_auth_demo/domain/repository/repository.dart';
 import 'package:mvmm_auth_demo/domain/usecase/base_usecase.dart';
 
-class LoginUseCase implements BaseUseCase<LoginUseCaseInput, void> {
+class SignupUseCase implements BaseUseCase<SignupUseCaseInput, void> {
   final Repository _repository;
 
-  LoginUseCase(this._repository);
+  SignupUseCase(this._repository);
 
   @override
-  Future<Either<Failure, void>> execute(LoginUseCaseInput input) async {
+  Future<Either<Failure, void>> execute(SignupUseCaseInput input) async {
     try {
-      await _repository.signIn(email: input.email, password: input.password);
+      await _repository.signUp(email: input.email, password: input.password);
       return const Right(null);
     } catch (error) {
       var failure = const Failure('Default Error Message'); //Todo: Change String
-      if (error is LogInWithEmailAndPasswordFailure) {
+      if (error is SignUpWithEmailAndPasswordFailure) {
         failure = Failure(error.message);
       }
 
@@ -27,9 +27,9 @@ class LoginUseCase implements BaseUseCase<LoginUseCaseInput, void> {
   }
 }
 
-class LoginUseCaseInput {
+class SignupUseCaseInput {
   String email;
   String password;
 
-  LoginUseCaseInput(this.email, this.password);
+  SignupUseCaseInput(this.email, this.password);
 }

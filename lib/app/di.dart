@@ -1,17 +1,11 @@
 import 'package:get_it/get_it.dart';
 import 'package:mvmm_auth_demo/data/auth/repository/repository_impl.dart';
+import 'package:mvmm_auth_demo/domain/channels/user_channel.dart';
 import 'package:mvmm_auth_demo/domain/repository/repository.dart';
+import 'package:mvmm_auth_demo/domain/usecase/login_usecase.dart';
+import 'package:mvmm_auth_demo/domain/usecase/logout_usecase.dart';
 import 'package:mvmm_auth_demo/presentation/controller/app/bloc/app_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-// import 'package:mvmm_auth_demo/data/data_source/data_source.dart';
-// import 'package:mvmm_auth_demo/data/data_source/remote_data_source.dart';
-// import 'package:mvmm_auth_demo/data/network/app_api.dart';
-// import 'package:mvmm_auth_demo/data/network/dio_factory.dart';
-// import 'package:mvmm_auth_demo/data/network/network_info.dart';
-// import 'package:mvmm_auth_demo/data/repository/repository_impl.dart';
-// import 'package:mvmm_auth_demo/domain/repository/repository.dart';
-// import 'package:mvmm_auth_demo/domain/usecase/login_usecase.dart';
 
 final injector = GetIt.instance;
 
@@ -21,9 +15,24 @@ Future<void> initAppModule() async {
     () => AuthenticationRepository(cache: cache),
   );
 
+  injector.registerLazySingleton<UserChannel>(
+    () => UserChannel(repository: injector<Repository>()),
+  );
+
+  injector.registerLazySingleton<LoginUseCase>(
+    () => LoginUseCase(injector<Repository>()),
+  );
+
+  injector.registerLazySingleton<LogoutUseCase>(
+    () => LogoutUseCase(
+      injector<Repository>(),
+    ),
+  );
+
   injector.registerLazySingleton<AppBloc>(
     () => AppBloc(
-      repository: injector<Repository>(),
+      userChannel: injector<UserChannel>(),
+      logoutUseCase: injector<LogoutUseCase>(),
     ),
   );
 }

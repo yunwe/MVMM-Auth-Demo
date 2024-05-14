@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mvmm_auth_demo/app/di.dart';
 import 'package:mvmm_auth_demo/app/route/app_router.dart';
 import 'package:mvmm_auth_demo/app/route/route_utils.dart';
-import 'package:mvmm_auth_demo/domain/repository/repository.dart';
 import 'package:mvmm_auth_demo/presentation/controller/app/bloc/app_bloc.dart';
 import 'package:mvmm_auth_demo/presentation/resources/resources.dart';
 
@@ -14,10 +13,8 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => AppBloc(
-        repository: injector<Repository>(),
-      ),
+    return BlocProvider.value(
+      value: injector<AppBloc>(),
       child: const AppView(),
     );
   }

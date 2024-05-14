@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// {@template user}
 /// User model
@@ -37,4 +38,20 @@ class User extends Equatable {
 
   @override
   List<Object?> get props => [email, id, name, photo];
+}
+
+extension UserCacheing on User {
+  static User? load(SharedPreferences cache, String key) {
+    List<String>? values = cache.getStringList(key);
+    if (values == null || values.length != 4) {
+      return null;
+    }
+
+    return User(id: values[0], email: values[1], name: values[2], photo: values[3]);
+  }
+
+  void writeCache(SharedPreferences cache, String key) {
+    List<String> values = [id, email ?? '', name ?? '', photo ?? ''];
+    cache.setStringList(key, values);
+  }
 }

@@ -51,12 +51,12 @@ dependencies:
   meta: ^1.8.0
 
 # DataProvider 'mockapi'  
-#  internet_connection_checker_plus: ^2.2.0
-#  json_annotation: ^4.9.0
-#  pretty_dio_logger: ^1.3.1
-#  retrofit: ^4.1.0
-#  device_info_plus: ^9.1.2
-#  dio: ^5.4.0
+  internet_connection_checker_plus: ^2.2.0
+  json_annotation: ^4.9.0
+  pretty_dio_logger: ^1.3.1
+  retrofit: ^4.1.0
+  device_info_plus: ^9.1.2
+  dio: ^5.4.0
 
 
 dev_dependencies:

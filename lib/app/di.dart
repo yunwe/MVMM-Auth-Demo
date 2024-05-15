@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:mvmm_auth_demo/data/auth/repository/repository_impl.dart';
+import 'package:mvmm_auth_demo/data/firebase/repository/repository_impl.dart';
 import 'package:mvmm_auth_demo/domain/channels/user_channel.dart';
 import 'package:mvmm_auth_demo/domain/repository/repository.dart';
 import 'package:mvmm_auth_demo/domain/usecase/login_usecase.dart';
@@ -12,7 +12,7 @@ final injector = GetIt.instance;
 Future<void> initAppModule() async {
   var cache = await SharedPreferences.getInstance();
   injector.registerLazySingleton<Repository>(
-    () => AuthenticationRepository(cache: cache),
+    () => FirebaseAuthRepository(cache: cache),
   );
 
   injector.registerLazySingleton<UserChannel>(

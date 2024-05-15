@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:either_dart/either.dart';
-import 'package:mvmm_auth_demo/data/auth/repository/exceptions.dart';
+import 'package:mvmm_auth_demo/data/firebase/repository/exceptions.dart';
 import 'package:mvmm_auth_demo/domain/model/models.dart';
 import 'package:mvmm_auth_demo/domain/repository/repository.dart';
 import 'package:mvmm_auth_demo/domain/usecase/base_usecase.dart';
@@ -17,7 +17,8 @@ class LoginUseCase implements BaseUseCase<LoginUseCaseInput, void> {
       await _repository.signIn(email: input.email, password: input.password);
       return const Right(null);
     } catch (error) {
-      var failure = const Failure('Default Error Message'); //Todo: Change String
+      var failure =
+          const Failure('Default Error Message'); //Todo: Change String
       if (error is LogInWithEmailAndPasswordFailure) {
         failure = Failure(error.message);
       }

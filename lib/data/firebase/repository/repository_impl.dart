@@ -7,11 +7,11 @@ import 'package:meta/meta.dart';
 import 'package:mvmm_auth_demo/domain/model/models.dart';
 import 'package:mvmm_auth_demo/domain/repository/repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'extensions.dart';
+import 'mappers.dart';
 import 'exceptions.dart';
 
-class AuthenticationRepository extends Repository {
-  AuthenticationRepository({
+class FirebaseAuthRepository extends Repository {
+  FirebaseAuthRepository({
     required this.cache,
     firebase_auth.FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,

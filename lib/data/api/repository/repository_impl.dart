@@ -27,12 +27,6 @@ class APIAuthRepository extends Repository {
   Stream<User> get user => _controller.stream;
 
   @override
-  // TODO: implement currentUser
-  User get currentUser {
-    return UserCacheing.load(cache) ?? User.empty;
-  }
-
-  @override
   Future<void> signIn({required String email, required String password}) async {
     if (await _networkInfo.isConnected) {
       try {
@@ -56,9 +50,9 @@ class APIAuthRepository extends Repository {
   }
 
   @override
-  Future<void> signOut() {
-    // TODO: implement signOut
-    throw UnimplementedError();
+  Future<void> signOut() async {
+    updateCurrentUser(User.empty);
+    return;
   }
 
   @override

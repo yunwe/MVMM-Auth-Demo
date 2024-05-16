@@ -39,13 +39,6 @@ class FirebaseAuthRepository extends Repository {
     });
   }
 
-  /// Returns the current cached user.
-  /// Defaults to [User.empty] if there is no cached user.
-  @override
-  User get currentUser {
-    return UserCacheing.load(cache) ?? User.empty;
-  }
-
   /// Creates a new user with the provided [email] and [password].
   ///
   /// Throws a [SignUpWithEmailAndPasswordFailure] if an exception occurs.

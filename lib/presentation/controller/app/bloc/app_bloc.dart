@@ -14,7 +14,7 @@ class AppBloc extends Bloc<AppEvent, AppState> {
       : _userChannel = userChannel,
         _logoutUsecase = logoutUseCase,
         super(
-          userChannel.cachedUser.isNotEmpty ? AppState.authenticated(userChannel.cachedUser) : const AppState.unauthenticated(),
+          const AppState.unauthenticated(),
         ) {
     on<_AppUserChanged>(_onUserChanged);
     on<AppLogoutRequested>(_onLogoutRequested);

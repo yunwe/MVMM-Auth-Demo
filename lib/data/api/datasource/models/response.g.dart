@@ -6,9 +6,10 @@ part of 'response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-BaseResponse _$BaseResponseFromJson(Map<String, dynamic> json) => BaseResponse()
-  ..status = (json['status'] as num?)?.toInt()
-  ..message = json['message'] as String?;
+BaseResponse _$BaseResponseFromJson(Map<String, dynamic> json) => BaseResponse(
+      (json['status'] as num).toInt(),
+      json['message'] as String,
+    );
 
 Map<String, dynamic> _$BaseResponseToJson(BaseResponse instance) =>
     <String, dynamic>{
@@ -47,15 +48,15 @@ Map<String, dynamic> _$ContactsResponseToJson(ContactsResponse instance) =>
 AuthenticationResponse _$AuthenticationResponseFromJson(
         Map<String, dynamic> json) =>
     AuthenticationResponse(
+      (json['status'] as num).toInt(),
+      json['message'] as String,
       json['user'] == null
           ? null
           : UserResponse.fromJson(json['user'] as Map<String, dynamic>),
       json['contacts'] == null
           ? null
           : ContactsResponse.fromJson(json['contacts'] as Map<String, dynamic>),
-    )
-      ..status = (json['status'] as num?)?.toInt()
-      ..message = json['message'] as String?;
+    );
 
 Map<String, dynamic> _$AuthenticationResponseToJson(
         AuthenticationResponse instance) =>

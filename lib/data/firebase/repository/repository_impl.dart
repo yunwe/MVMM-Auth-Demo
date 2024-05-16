@@ -26,11 +26,6 @@ class FirebaseAuthRepository extends Repository {
   @visibleForTesting
   bool isWeb = kIsWeb;
 
-  /// User cache key.
-  /// Should only be used for testing purposes.
-  @visibleForTesting
-  static const userCacheKey = '__user_cache_key__';
-
   // Stream of [User] which will emit the current user when
   /// the authentication state changes.
   ///
@@ -39,7 +34,7 @@ class FirebaseAuthRepository extends Repository {
   Stream<User> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
-      user.writeCache(cache, userCacheKey);
+      user.writeCache(cache);
       return user;
     });
   }
@@ -48,7 +43,7 @@ class FirebaseAuthRepository extends Repository {
   /// Defaults to [User.empty] if there is no cached user.
   @override
   User get currentUser {
-    return UserCacheing.load(cache, userCacheKey) ?? User.empty;
+    return UserCacheing.load(cache) ?? User.empty;
   }
 
   /// Creates a new user with the provided [email] and [password].

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:mvmm_auth_demo/app/setting.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -42,16 +43,21 @@ class User extends Equatable {
 }
 
 extension UserCacheing on User {
-  static User? load(SharedPreferences cache) {
+  static User load(SharedPreferences cache) {
     List<String>? values = cache.getStringList(Consts.user_cache_key);
     if (values == null || values.length != 4) {
-      return null;
+      return User.empty;
     }
 
     return User(id: values[0], email: values[1], name: values[2], photo: values[3]);
   }
 
   void writeCache(SharedPreferences cache) {
+    if (isEmpty) {
+      cache.setStringList(Consts.user_cache_key, []);
+      return;
+    }
+
     List<String> values = [id, email ?? '', name ?? '', photo ?? ''];
     cache.setStringList(Consts.user_cache_key, values);
   }

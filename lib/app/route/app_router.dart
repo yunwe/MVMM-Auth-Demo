@@ -14,19 +14,23 @@ class AppRouter {
   static final GoRouter _router = GoRouter(
     debugLogDiagnostics: true,
     navigatorKey: _rootNavigatorKey,
+    initialLocation: PAGES.signin.screenPath,
     routes: [
       GoRoute(
         path: PAGES.home.screenPath,
         name: PAGES.home.screenName,
         builder: (context, state) => BlocProvider.value(
-          value: injector<AppBloc>(),
+          value: context.read<AppBloc>(),
           child: const HomePage(),
         ),
       ),
       GoRoute(
         path: PAGES.signin.screenPath,
         name: PAGES.signin.screenName,
-        builder: (context, state) => const LoginPage(),
+        builder: (context, state) {
+          initLoginModule();
+          return const LoginPage();
+        },
       ),
       GoRoute(
         path: PAGES.error.screenPath,

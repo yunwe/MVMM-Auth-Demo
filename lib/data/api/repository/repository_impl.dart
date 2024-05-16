@@ -1,19 +1,25 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:mvmm_auth_demo/app/service/network_info.dart';
 import 'package:mvmm_auth_demo/data/api/datasource/app_api.dart';
 import 'package:mvmm_auth_demo/data/api/datasource/models/models.dart';
+import 'package:mvmm_auth_demo/data/api/repository/exceptions/exceptions.dart';
 import 'package:mvmm_auth_demo/data/api/repository/mappers.dart';
 import 'package:mvmm_auth_demo/domain/model/user.dart';
 import 'package:mvmm_auth_demo/domain/repository/repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class APIAuthRepository extends Repository {
   final AppServiceClient _api;
   final StreamController<User> _controller;
   final NetworkInfo _networkInfo;
+  final SharedPreferences cache;
 
-  APIAuthRepository({required AppServiceClient api})
-      : _api = api,
+  APIAuthRepository({
+    required AppServiceClient api,
+    required this.cache,
+  })  : _api = api,
         _networkInfo = NetworkInfo(),
         _controller = StreamController<User>();
 
@@ -22,31 +28,30 @@ class APIAuthRepository extends Repository {
 
   @override
   // TODO: implement currentUser
-  User get currentUser => throw UnimplementedError();
+  User get currentUser {
+    return UserCacheing.load(cache) ?? User.empty;
+  }
 
   @override
   Future<void> signIn({required String email, required String password}) async {
     if (await _networkInfo.isConnected) {
       try {
         // its safe to call the API
-        AuthenticationResponse response =
-            await _api.login(email, password, '', '');
+        AuthenticationResponse response = await _api.login(email, password, '', '');
 
         if (response.status == APIInternalStatus.success.statusCode) {
-          // return data (success)
-          User user = response.toUser;
-          _controller.sink.add(user);
+          updateCurrentUser(response.toUser);
         } else {
-          // return biz logic error
-          // return left
-          throw 'Failure(response.status ?? APIInternalStatus.fail.statusCode, response.message ?? ErrorStrings.DEFAULT))';
+          throw DomainLogicFailure.fromRespnse(response);
         }
+      } on DioException catch (error) {
+        throw DioExceptionsFailure.fromDio(error);
       } catch (error) {
-        throw 'ErrorHandler.handle(error).failure';
+        throw const DioExceptionsFailure();
       }
     } else {
       // return connection error
-      throw 'DefinedError.NO_INTERNET_CONNECTION.failure';
+      throw const ConnectionFailure();
     }
   }
 
@@ -60,5 +65,10 @@ class APIAuthRepository extends Repository {
   Future<void> signUp({required String email, required String password}) {
     // TODO: implement signUp
     throw UnimplementedError();
+  }
+
+  void updateCurrentUser(User user) {
+    user.writeCache(cache);
+    _controller.sink.add(user);
   }
 }

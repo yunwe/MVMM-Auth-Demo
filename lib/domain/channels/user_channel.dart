@@ -2,15 +2,16 @@ import 'dart:async';
 
 import 'package:mvmm_auth_demo/domain/model/models.dart';
 import 'package:mvmm_auth_demo/domain/repository/repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserChannel {
-  UserChannel({required this.repository});
+  UserChannel({
+    required this.repository,
+    required this.cache,
+  });
 
   final Repository repository;
-
-  User get cachedUser {
-    return repository.currentUser;
-  }
+  final SharedPreferences cache;
 
   Stream<User> get user => repository.user;
 }

@@ -1,6 +1,14 @@
 # mvmm_auth_demo
 
-A new Flutter project.
+This is a starter template project that already included authentication session. The authentication processes for firebase and REST Api is developed.  
+
+The project is written in MVMM clean architecture, and use BLoC as state management. 
+
+For REST Api services, *retrofit* and *dio* packages are used. 
+
+For navigation and better control in redirection, *go_router* is used.
+
+For reusable and clean form validation, *formz* is used.
 
 ## Getting Started
 

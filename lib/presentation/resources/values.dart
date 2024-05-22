@@ -28,6 +28,10 @@ class AppKeys {
   static const Key loginPassword = Key('loginForm_passwordInput_textField');
   static const Key loginSubmit = Key('loginForm_continue_raisedButton');
   static const Key logoutButton = Key('homePage_logout_iconButton');
+  static const Key registerUsername = Key('registerForm_usernameInput_textField');
+  static const Key registerPassword = Key('registerForm_passwordInput_textField');
+  static const Key registerConfirmPassword = Key('registerForm_confirmPasswordInput_textField');
+  static const Key registerSubmit = Key('registerForm_continue_raisedButton');
 }
 
 class FontSize {

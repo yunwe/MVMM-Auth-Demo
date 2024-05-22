@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:mvmm_auth_demo/domain/model/models.dart';
 import 'package:mvmm_auth_demo/domain/usecase/login_usecase.dart';
-import 'package:mvmm_auth_demo/presentation/screens/login/models/models.dart';
+import 'package:mvmm_auth_demo/presentation/screens/models/models.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';

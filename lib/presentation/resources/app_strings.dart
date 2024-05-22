@@ -19,4 +19,5 @@ class AppStrings {
   static const String errorShortUsername = 'Username must be at least 4 characters.';
   static const String errorLongUsername = 'Username must not be more than 30 characters.';
   static const String errorEmptyUsername = 'Username must not be empty';
+  static const String errorMismatch = 'Passwords do not match.';
 }

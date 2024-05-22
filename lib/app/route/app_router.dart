@@ -6,6 +6,7 @@ import 'package:mvmm_auth_demo/presentation/controller/app/bloc/app_bloc.dart';
 import 'package:mvmm_auth_demo/presentation/screens/error/error.dart';
 import 'package:mvmm_auth_demo/presentation/screens/home/home.dart';
 import 'package:mvmm_auth_demo/presentation/screens/login/login.dart';
+import 'package:mvmm_auth_demo/presentation/screens/register/view/view.dart';
 import 'route_utils.dart';
 
 class AppRouter {
@@ -30,6 +31,14 @@ class AppRouter {
         builder: (context, state) {
           initLoginModule();
           return const LoginPage();
+        },
+      ),
+      GoRoute(
+        path: PAGES.register.screenPath,
+        name: PAGES.register.screenName,
+        builder: (context, state) {
+          initSignupModule();
+          return const RegisterPage();
         },
       ),
       GoRoute(
